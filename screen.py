@@ -8,6 +8,9 @@ class Tile:
   Tiles are squares so only one measurement is needed
   to create them.
   Color is given in an rgb tuple (r,g,b).
+  Boarder is used when drawing the square.  It is defualt to
+  1, which gives a boarder of size 1 pixel.  If it is 0, then
+  the square will be filled in.
   """
       
   def __init__(self, x, y, size, color):
@@ -15,6 +18,7 @@ class Tile:
     self.y = y
     self.size = size
     self.color = color
+    self.boarder = 1 
     
   def draw(self, screen):
     """ 
@@ -22,7 +26,10 @@ class Tile:
     It will the draw the tile on the screen using its attributes
     """
     
-    pygame.draw.rect(screen, self.color, ((self.x, self.y), (self.size, self.size)), 0)
+    pygame.draw.rect(screen, self.color, ((self.x, self.y), (self.size, self.size)), self.boarder)
     
   def setColor(self, color):
     self.color = color
+
+  def setBoarder(self, boarder):
+    self.board = boarder

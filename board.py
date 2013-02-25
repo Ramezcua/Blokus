@@ -1,8 +1,8 @@
 import pygame
-import screen
+from screen import Tile
 
 #The size of each block in pixels (they're squares so only need one measurement)
-BLOCKSIZE = 16 
+BLOCKSIZE = 32 
 #The height and width of the board in a measurement of blocks  
 BOARDWIDTH = 20
 BOARDHEIGHT = 20
@@ -13,8 +13,10 @@ STARTY = 0
 ENDX = (BOARDWIDTH * BLOCKSIZE) + STARTX
 ENDY = (BOARDHEIGHT * BLOCKSIZE) + STARTY
 
+BLANKCOLOR = (137, 155, 141) # White
 
-class BoardSquare (screen.Tile):
+
+class BoardSquare (Tile):
   """
   This class represents the squares on the game board.
   It inherits the Tile class from screen.
@@ -25,7 +27,7 @@ class BoardSquare (screen.Tile):
   """
   
   def __init__(self, x, y, size, color, xcoord, ycoord):
-    screen.Tile.__init__(self, x, y, size, color)
+    Tile.__init__(self, x, y, size, color)
     self.xcoord = xcoord
     self.ycoord = ycoord
     player = 0
@@ -51,17 +53,17 @@ class Board:
       new = []
       ytemp = 0
       for y in xrange(STARTY, ENDY, BLOCKSIZE):
-        newSquare = BoardSquare(x, y, BLOCKSIZE, (255, 255, 255), xtemp, ytemp)
+        newSquare = BoardSquare(x, y, BLOCKSIZE, BLANKCOLOR, xtemp, ytemp)
         new.append(newSquare)
-        ytemp++ # Go on to the next column
-      self.tiles.append(new)
-      xtemp++ # Go on to the next row
+        ytemp += 1 # Go on to the next column
+      self.squares.append(new)
+      xtemp += 1 # Go on to the next row
       
       
-  def drawBoard(self, screen):
+  def draw(self, screen):
     for squaresList in self.squares:
       for square in squaresList:
-        square.draw(self.screen)
+        square.draw(screen)
       
       
       
